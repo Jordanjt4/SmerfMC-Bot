@@ -6,8 +6,6 @@ from botocore.exceptions import ClientError
 from supabase import create_client, Client
 
 load_dotenv()
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-GUILD_ID = int(os.getenv("GUILD_ID"))
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
