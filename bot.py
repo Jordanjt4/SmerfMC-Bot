@@ -120,9 +120,9 @@ async def create_category(interaction: discord.Interaction,
 
 # change category name
 @app_commands.guilds(GUILD_ID)
-@app_commands.autocomplete(category=autocomplete_categories)
+@app_commands.autocomplete(old_category_name=autocomplete_categories)
 @bot.tree.command(name="change_category_name", description="Change an existing category name. Case sensitive.")
-async def edit_category_name(interaction: discord.Interaction, 
+async def change_category_name(interaction: discord.Interaction, 
                         old_category_name: str,
                         new_category_name: str):
     try:
@@ -151,7 +151,7 @@ async def edit_category_name(interaction: discord.Interaction,
 @app_commands.guilds(GUILD_ID)
 @app_commands.autocomplete(category=autocomplete_categories)
 @bot.tree.command(name="change_category_description", description="Change an existing category description. Category name is case sensitive.")
-async def edit_category_desc(interaction: discord.Interaction, 
+async def change_category_desc(interaction: discord.Interaction, 
                         category: str,
                         new_description: str):
     try:
@@ -164,7 +164,7 @@ async def edit_category_desc(interaction: discord.Interaction,
         await interaction.response.send_message(f"Unable to edit category description. Reminder: Category name case sensitive. Check existing names with /view_categories.", ephemeral=True)
 
 # gives the link to the website gallery
-@app_commands.guild(GUILD_ID)
+@app_commands.guilds(GUILD_ID)
 @bot.tree.command(name="gallery")
 async def gallery (interaction: discord.Interaction):
     await interaction.response.send_message(f"Website url here", ephemeral=True)
@@ -197,7 +197,6 @@ async def upload(interaction: discord.Interaction,
     data_fileobj = io.BytesIO(data)
     data_fileobj.seek(0) # read from the 0th byte 
     obj_key = gen_s3_obj_key(category, image.filename)
-    print("object key:", obj_key)
 
     s3.upload_fileobj(data_fileobj, 'smerfmc', obj_key, ExtraArgs = {"ContentType": image.content_type})
 

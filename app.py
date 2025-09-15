@@ -37,14 +37,12 @@ def get_images(category: str):
 def get_description(category: str):
     rows = supabase.table("categories").select("categoryDescription").eq("categoryName", category).execute()
     data = rows.data
-    print(data)
     description = data[0]['categoryDescription']
-    print(description)
     return description
 
 # Get all categories
 def get_categories():
-    rows = supabase.table("categories").select("categoryName").execute()
+    rows = supabase.table("categories").select("categoryName").order("categoryName").execute()
     data = rows.data
     names = [d['categoryName'] for d in data]
     return names
@@ -61,14 +59,12 @@ def index():
 # Uses hidden input (form)
 @app.route("/choose", methods=["POST"])
 def choose():
-    print(request.form)
     category = request.form.get("category")
-    print(category)
 
     urls = get_images(category)
     description = get_description(category)
     categories = get_categories()
-    return render_template('index.html', urls = urls, description = description, categories = categories)
+    return render_template('index.html', urls = urls, description = description, category = category, categories = categories)
 
 if __name__ == "__main__":
     app.run(debug=True)

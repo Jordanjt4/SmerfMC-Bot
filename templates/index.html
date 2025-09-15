@@ -17,7 +17,13 @@
             <div class="dropdown-container">
                 <div class="dropdown">
                     <div class="select">
-                        <span>Select Category</span>
+                        {% if category %}
+                            <span>{{category}}</span>
+                        {% elif categories %}
+                            <span>{{categories[0]}}</span>
+                        {% else %}
+                            <span>Select a category</span>
+                        {% endif %}
                         <i class="fa fa-chevron-left"></i>
                     </div>
                     <form action="{{url_for('choose')}}" method="POST">
