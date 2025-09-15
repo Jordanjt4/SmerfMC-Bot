@@ -1,6 +1,5 @@
 Flask
 boto3
 python-dotenv
-botocore
 supabase
 gunicorn
