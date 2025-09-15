@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SmerfMC Gallery</title>
+    <script src="https://kit.fontawesome.com/9c9978f0e5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css') }}">
+    <script src="{{url_for('static', filename='js/home.js')}}" defer></script>
+</head>
+
+<body>
+    <div class="header-container">
+        <div class="navigation">
+            <h1>SmerfMC Gallery</h1>
+            
+            <div class="dropdown-container">
+                <div class="dropdown">
+                    <div class="select">
+                        <span>Select Category</span>
+                        <i class="fa fa-chevron-left"></i>
+                    </div>
+                    <form action="{{url_for('choose')}}" method="POST">
+                    <input type="hidden" name="category">
+                        <ul class="dropdown-menu">
+                            {% for category in categories %}
+                                <li>{{category}}</li>
+                            {% endfor %}
+                        </ul>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <img id="squirrel" src="../static/images/squirrel.png">
+        <div id="grass"></div>
+    </div>
+
+
+    <div class="gallery">
+        <div class="description">
+            {% if description %}
+                <p>{{description}}</p>
+            {% else %}
+                <p></p>
+            {% endif %}
+        </div>
+        <!-- Flask for loop to show the images! -->
+         <div class="images">
+            {% for url in urls %}
+                <div class="item">
+                    <div class="outer-frame">
+                        <img class="image" src="{{url['url']}}">
+                    </div>
+                    {% if url['caption'] %}
+                        <div class="caption-outer-frame">
+                            <p class="caption">{{url['caption']}}</p>
+                        </div>
+                    {% else %}
+                        <div class="caption-outer-frame">
+                            <p class="caption"><br></p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+         </div>
+    </div>
+</body>
+</html>
