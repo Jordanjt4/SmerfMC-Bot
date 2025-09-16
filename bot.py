@@ -43,9 +43,15 @@ def create_presigned_url(bucket_name, key, expiration=3600):
 
 def get_category_names():
     # select all category names
-    data = supabase.table("categories").select("categoryName").execute()
+    data = supabase.table("categories").select("categoryName").order("categoryName").execute()
     names = [d["categoryName"] for d in data.data]
     return names
+
+def get_descriptions():
+    # select all category names
+    data = supabase.table("categories").select("categoryDescription").order("categoryName").execute()
+    descriptions = [d["categoryDescription"] for d in data.data]
+    return descriptions
 
 def supa_insert(table_name: str, row: Dict[str, Any]):
     data = (
@@ -84,8 +90,11 @@ async def bahh(interaction: discord.Interaction):
 @bot.tree.command(name="view_categories", description="View existing categories")
 async def view_categories(interaction: discord.Interaction):
     names = get_category_names()
+    descriptions = get_descriptions() 
     if names: # bullet point
-        result = "\n".join(f"• {name}" for name in names)
+        result = "\n".join(
+                f"• **{name}** - {desc}" 
+                for name, desc in zip(names, descriptions))
     else:
         result = "No categories found."
 
@@ -167,7 +176,7 @@ async def change_category_desc(interaction: discord.Interaction,
 @app_commands.guilds(GUILD_ID)
 @bot.tree.command(name="gallery")
 async def gallery (interaction: discord.Interaction):
-    await interaction.response.send_message(f"Website url here", ephemeral=True)
+    await interaction.response.send_message(f"https://smerfmc.onrender.com", ephemeral=True)
 
 # image and category required
 # category must be one of the categories listed
