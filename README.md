@@ -3,13 +3,13 @@ A Discord bot for private server allows users to upload and categorize game scre
 
 ### Features
 Several commands the user can call.
-    **‘/upload’** : upload an image to an existing category, with an optional caption
-    **‘/create_category’** : create a new category to which images can be uploaded under
-    **‘/change_category’** : edit an existing category name
-    **‘/change_description’** : edit an existing category’s description
-    **‘/view_categories’** : displays all categories and their descriptions
-    **‘/gallery’** : gives a link to the website
-    **'/bahh'** : Troll command :)
+- **‘/upload’** : upload an image to an existing category, with an optional caption
+- **‘/create_category’** : create a new category to which images can be uploaded under
+- **‘/change_category’** : edit an existing category name
+- **‘/change_description’** : edit an existing category’s description
+- **‘/view_categories’** : displays all categories and their descriptions
+- **‘/gallery’** : gives a link to the website
+- **'/bahh'** : Troll command :)
 
 Uploaded images get stored in Amazon S3. Corresponding object keys, categories, and descriptions storied in Supabase. The website calls this database to display images.
 
